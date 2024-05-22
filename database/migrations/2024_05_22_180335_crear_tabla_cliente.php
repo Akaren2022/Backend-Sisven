@@ -11,7 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('Clientes', function (Blueprint $table) {
+            $table->id();
+            $table->string('numero_documento', 15)->unique();
+            $table->string('nombre', 50)->nullable();
+            $table->string('apellido', 50)->nullable();
+            $table->string('direccion', 80)->nullable();
+            $table->date('cumpleaños')->nullable();
+            $table->string('celular', 16)->nullable();
+            $table->string('correo', 100)->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('Clientes');
     }
 };

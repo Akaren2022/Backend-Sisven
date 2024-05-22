@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('metodo_pago', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre', 50)->unique();
+            $table->text('observacion')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('metodo_pago');
     }
 };
