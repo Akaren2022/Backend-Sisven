@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModeloCategoria;
 use Illuminate\Http\Request;
 
 class ControladorCategoria extends Controller
@@ -12,7 +13,8 @@ class ControladorCategoria extends Controller
      */
     public function index()
     {
-        //
+        $categorias = ModeloCategoria::all();
+        return json_encode(['categorias' => $categorias]);
     }
 
     /**
@@ -20,7 +22,12 @@ class ControladorCategoria extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categoria = new ModeloCategoria();
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->id = $request->id;
+        $categoria->save();
+        return json_encode(['categoria' => $categoria]);
     }
 
     /**
@@ -28,7 +35,8 @@ class ControladorCategoria extends Controller
      */
     public function show(string $id)
     {
-        //
+        $categoria = ModeloCategoria::find($id);
+        return json_encode(['categoria' => $categoria]);
     }
 
     /**
@@ -36,7 +44,12 @@ class ControladorCategoria extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $categoria = ModeloCategoria::find($id);
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->id = $request->id;
+        $categoria->save();
+        return json_encode(['categoria' => $categoria]);
     }
 
     /**
@@ -44,6 +57,10 @@ class ControladorCategoria extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $categoria = ModeloCategoria::find($id);
+        $categoria->delete();
+
+        $categorias = ModeloCategoria::all();
+        return json_encode(['categorias' => $categorias, 'success' => true]);
     }
 }
