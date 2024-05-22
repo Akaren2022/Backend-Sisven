@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModeloMetodoPago;
 use Illuminate\Http\Request;
 
 class ControladorMetodoPago extends Controller
@@ -12,7 +13,8 @@ class ControladorMetodoPago extends Controller
      */
     public function index()
     {
-        //
+        $metodos = ModeloMetodoPago::all();
+        return json_encode(['metodos' => $metodos]);
     }
 
     /**
@@ -20,7 +22,12 @@ class ControladorMetodoPago extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $metodo = new ModeloMetodoPago();
+        $metodo->id = $request->id;
+        $metodo->nombre = $request->nombre;
+        $metodo->observacion = $request->observacion;
+        $metodo->save();
+        return json_encode(['metodo' => $metodo]);
     }
 
     /**
@@ -28,7 +35,8 @@ class ControladorMetodoPago extends Controller
      */
     public function show(string $id)
     {
-        //
+        $metodo = ModeloMetodoPago::find($id);
+        return json_encode(['metodo' => $metodo]);
     }
 
     /**
@@ -36,7 +44,12 @@ class ControladorMetodoPago extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $metodo = ModeloMetodoPago::find($id);
+        $metodo->id = $request->id;
+        $metodo->nombre = $request->nombre;
+        $metodo->observacion = $request->observacion;
+        $metodo->save();
+        return json_encode(['metodo' => $metodo]);
     }
 
     /**
@@ -44,6 +57,10 @@ class ControladorMetodoPago extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $metodo = ModeloMetodoPago::find($id);
+        $metodo->delete();
+
+        $metodos = ModeloMetodoPago::all();
+        return json_encode(['metodos' => $metodos, 'success' => true]);
     }
 }
