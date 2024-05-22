@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModeloCliente;
 use Illuminate\Http\Request;
 
 class ControladorCliente extends Controller
@@ -12,7 +13,8 @@ class ControladorCliente extends Controller
      */
     public function index()
     {
-        //
+        $clientes = ModeloCliente::all();
+        return json_encode(['clientes' => $clientes]);
     }
 
     /**
@@ -20,7 +22,18 @@ class ControladorCliente extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente = new ModeloCliente();
+        $cliente->numero_documento = $request->numero_documento;
+        $cliente->nombre = $request->nombre;
+        $cliente->apellido = $request->apellido;
+        $cliente->direccion = $request->direccion;
+        $cliente->cumpleaños = $request->cumpleaños;
+        $cliente->celular = $request->celular;
+        $cliente->id = $request->id;
+        $cliente->correo = $request->correo;
+        $cliente->save();
+
+        return json_encode(['cliente' => $cliente]);
     }
 
     /**
@@ -28,7 +41,9 @@ class ControladorCliente extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cliente = ModeloCliente::find($id);
+
+        return json_encode(['cliente' => $cliente]);
     }
 
     /**
@@ -36,7 +51,18 @@ class ControladorCliente extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $cliente = ModeloCliente::find($id);
+        $cliente->numero_documento = $request->numero_documento;
+        $cliente->nombre = $request->nombre;
+        $cliente->apellido = $request->apellido;
+        $cliente->direccion = $request->direccion;
+        $cliente->cumpleaños = $request->cumpleaños;
+        $cliente->celular = $request->celular;
+        $cliente->id = $request->id;
+        $cliente->correo = $request->correo;
+        $cliente->save();
+
+        return json_encode(['cliente' => $cliente]);
     }
 
     /**
@@ -44,6 +70,10 @@ class ControladorCliente extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cliente = ModeloCliente::find($id);
+        $cliente->delete();
+
+        $clientes = ModeloCliente::all();
+        return json_encode(['clientes' => $clientes, 'success' => true]);
     }
 }
