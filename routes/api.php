@@ -15,7 +15,7 @@ Route::post('/clientes', [ControladorCliente::class, 'store'])->name('clientes.s
 Route::get('/clientes', [ControladorCliente::class, 'index'])->name('clientes');
 Route::delete('/clientes/{cliente}', [ControladorCliente::class, 'destroy'])->name('clientes.destroy');
 Route::get('/clientes/{cliente}', [ControladorCliente::class, 'show'])->name('clientes.show');
-Route::post('/clientes/{cliente}', [ControladorCliente::class, 'update'])->name('clientes.update');
+Route::put('/clientes/{cliente}', [ControladorCliente::class, 'update'])->name('clientes.update');
 
 Route::get('/metodos', [ControladorMetodoPago::class, 'index'])->name('metodos');
 Route::post('/metodos', [ControladorMetodoPago::class, 'store'])->name('metodos.store');
